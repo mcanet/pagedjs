@@ -344,8 +344,8 @@ class Layout {
 			let instances = fragment.querySelectorAll(`[data-${tag}]`);
 			instances.forEach((instance) => {
 				delete instance.dataset[camel];
-			})
-		})
+			});
+		});
 
 		dest.appendChild(fragment);
 
@@ -672,8 +672,8 @@ class Layout {
 		}
 
 		breakToken.overflow.forEach((overflow) => {
-				this.hooks && this.hooks.afterOverflowRemoved.trigger(overflow.content, rendered, this);
-		})
+			this.hooks && this.hooks.afterOverflowRemoved.trigger(overflow.content, rendered, this);
+		});
 
 
 		return breakToken;
@@ -714,7 +714,7 @@ class Layout {
 						existing = true;
 					}
 				}
-			})
+			});
 			if (!existing) {
 				overflow.push(overflowResult);
 			}
@@ -894,12 +894,11 @@ class Layout {
 
 			if (isElement(child)) {
 				let styles = window.getComputedStyle(child);
-				let skipThis = false;
 
 				bottomMargin = parseInt(styles["margin-bottom"]);
 
 				if (child.dataset.rangeStartOverflow !== undefined) {
-					skipRange = skipThis = true;
+					skipRange = true;
 					result = null;
 					// Don't continue. The start may also be the end.
 				}
@@ -1008,7 +1007,6 @@ class Layout {
 					// sibling. In the later case, we want to move this node.
 					let intrinsicBottom = 0, intrinsicRight = 0;
 					let childBounds = getBoundingClientRect(node);
-					let styles;
 					if (isElement(node)) {
 						// Assume that any height is the result of matching the
 						// height of surrounding content if there's no content.
@@ -1021,11 +1019,11 @@ class Layout {
 							if (
 								(isText(lastChild) && !node.dataset.overflowTagged) ||
 								(!isText(lastChild) && !lastChild.dataset.overflowTagged)
-								) {
-									childBounds = getBoundingClientRect(lastChild);
-									intrinsicRight = childBounds.right;
-									intrinsicBottom = childBounds.bottom;
-								}
+							) {
+								childBounds = getBoundingClientRect(lastChild);
+								intrinsicRight = childBounds.right;
+								intrinsicBottom = childBounds.bottom;
+							}
 						}
 						else {
 							// Do we count this node even though it has no children?
@@ -1052,7 +1050,7 @@ class Layout {
 							ascended = false;
 							do {
 								node = node.nextElementSibling;
-							} while (node && node.dataset.overflowTagged)
+							} while (node && node.dataset.overflowTagged);
 							if (!node && rendered !== prev) {
 								ascended = true;
 								prev = node = prev.parentElement;

@@ -126,6 +126,13 @@ class Chunker {
 		this.charsPerBreak = [];
 		this.maxChars;
 
+		this.rulesToDisable = [
+			'breakInside',
+			'overflow',
+			'overflowX',
+			'overflowY',
+		];
+
 		if (content) {
 			this.flow(content, renderTo);
 		}
@@ -145,13 +152,6 @@ class Chunker {
 		this.pageTemplate.innerHTML = TEMPLATE;
 
 	}
-
-	rulesToDisable = [
-		'breakInside',
-		'overflow',
-		'overflowX',
-		'overflowY',
-	];
 
 	recordRulesToDisable() {
 		for (var i in document.styleSheets) {
@@ -196,7 +196,7 @@ class Chunker {
 					nodes.forEach((node) => {
 						let attribName = i.substring(0, 1).toUpperCase() + i.substring(1);
 						node.dataset[`original${attribName}`] = j;
-					})
+					});
 				}
 			}
 		}
@@ -212,7 +212,7 @@ class Chunker {
 					nodes.forEach((node) => {
 						let attribName = i.substring(0, 1).toUpperCase() + i.substring(2);
 						delete(node.dataset[`original${attribName}`]);
-					})
+					});
 				}
 			}
 		}
